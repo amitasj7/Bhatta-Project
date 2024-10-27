@@ -1,0 +1,40 @@
+.chatContainer {
+  display: flex;
+  flex-direction: column; /* Column layout for the main container */
+  width: 100%;
+}
+
+.header {
+  display: flex; /* Horizontal layout */
+  align-items: center; /* Center items vertically */
+  /* padding: 10px; Padding around header */
+  background-color: #f0f0f0; /* Background color for the header */
+  border-bottom: 1px solid #ccc; /* Bottom border */
+  width: 100%;
+}
+
+.backButton {
+  cursor: pointer; /* Pointer cursor */
+}
+
+.backIcon {
+  background-color: #f0f0f0; /* Background color */
+  border-radius: 5px; /* Rounded corners */
+  /* padding: ; Padding around the icon */
+  transition: background-color 0.3s; /* Smooth background change */
+}
+
+.backIcon:hover {
+  background-color: #e0e0e0; /* Hover par background change karein */
+}
+
+.userProfile {
+  margin-left: 20px; /* Space between back button and profile info */
+  flex-grow: 1; /* Allow this section to grow and take available space */
+  display: flex;
+  gap: 0.3rem;
+}
+
+.userProfile p {
+  margin: 2px;
+}

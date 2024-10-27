@@ -1,0 +1,189 @@
+/* Ensure container covers the full viewport without scrollbars */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: black; /* Default text color */
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Scroll ko hide karne ke liye */
+}
+
+.container {
+  display: flex;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Scroll ko avoid karne ke liye */
+}
+
+.sidebar {
+  width: 30%;
+  background-color: #dc9f5e; /* Optional background */
+  display: flex; /* Align text center */
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center;  */
+  font-size: 1rem; /* Increase font size for visibility */
+  color: white; /* Change text color for contrast */
+  padding: 5% 1rem;
+}
+
+/* sidebar content */
+
+.profilePhoto {
+  width: 8rem; /* Width of the photo */
+  height: 8rem; /* Height of the photo */
+  border-radius: 50%; /* Circle shape */
+  background-image: url("https://fps.cdnpk.net/images/home/subhome-ai.webp?w=649&h=649"); /* Profile image URL */
+  background-size: cover; /* Cover the div */
+  background-position: center; /* Center the image */
+  /* margin: 0 auto; Center the photo */
+
+  padding: 5rem 5rem;
+  margin-bottom: 15%;
+}
+
+.mainContent {
+  width: 70%;
+  background-color: #dfdad4; /* Optional background */
+  display: flex; /* Align text center */
+  flex-direction: column;
+  /* align-items: center; /* Vertically center */
+  /* justify-content: center; Horizontally center */
+  font-size: 1rem; /* Increase font size for visibility */
+  color: black; /* Change text color */
+  height: 100%;
+}
+
+.navbar {
+  display: flex; /* Flex layout for navbar */
+  justify-content: flex-end; /* Align items to the right */
+  align-items: center; /* Center items vertically */
+  /* position: relative; For positioning the search bar */
+  background-color: #edbf7d; /* Background color for navbar */
+  padding: 1.2rem; /* Padding for navbar */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  margin-top: 1%;
+}
+
+.searchBar {
+  display: flex; /* Flex layout for input */
+  align-items: center; /* Center input vertically */
+  transition: max-width 0.3s ease, opacity 0.3s ease; /* Smooth transitions */
+  overflow: hidden; /* Hide overflow content */
+  max-width: 0; /* Start closed */
+  opacity: 0; /* Start invisible */
+  margin-right: 1rem; /* Space between search bar and icon */
+}
+
+.searchBar.open {
+  max-width: 30%; /* Set width when open */
+  opacity: 1; /* Make it visible */
+}
+
+.searchBar.close {
+  max-width: 0; /* Set width when closed */
+  opacity: 0; /* Make it invisible */
+  pointer-events: none; /* Disable interactions when closed */
+}
+
+.searchBar input {
+  flex-grow: 1; /* Input field ko full width lene do */
+  border: 1px solid gray; /* Border for input */
+  outline: none; /* No outline on focus */
+  padding: 0.5rem; /* Padding for input */
+  font-size: 1rem; /* Font size */
+  transition: border-color 0.3s ease; /* Smooth border transition */
+  border-radius: 0.5rem;
+}
+
+.searchBar input:focus {
+  border-color: #e0bc82; /* Change border color on focus */
+}
+
+.search-icon {
+  cursor: pointer; /* Cursor change on hover */
+  margin-left: 0.5rem; /* Space between input and icon */
+  transition: transform 0.3s ease; /* Smooth icon transition */
+}
+
+.contentArea {
+  flex: 1; /* Ye div remaining space ko fill karega */
+  background-color: #e0e0e0; /* Content area background color */
+  /* padding: 1rem; Padding for spacing */
+  overflow: auto; /* Agar content bada ho to scroll enable karne ke liye */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  /* flex-wrap: wrap; Allow cards to wrap in case of overflow */
+  gap: 0.2rem; /* Space between cards */
+  justify-content: flex-start; /* Align items to the left */
+  width: 99%;
+}
+
+.card {
+  background-color: #fa9929;
+  border: 0.1rem solid #ddd;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%; /* Make it responsive to container */
+}
+.card:hover {
+  transform: scale(0.97); /* Scale on hover only */
+}
+
+.profileSection {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  /* padding-bottom: -10% -10; */
+  /* border-bottom: 1px solid #ddd; */
+  /* margin-bottom: 0.rem; */
+}
+
+.profileDetails {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+}
+
+.nameEmailPair {
+  margin-bottom: 1rem; /* Space between the name/email pair and location */
+}
+
+.additionalDetails {
+  margin-top: 1rem; /* Space between location and additional details */
+}
+
+.profileDetails p {
+  margin: 0.2rem 0; /* Space between lines in the same pair */
+}
+
+.detailsSection {
+  align-self: flex-start;
+}
+
+.priceInfo {
+  margin-bottom: 0.5rem; /* Less space between Price 1 and Price 2 */
+  margin-top: -0.5rem;
+}
+
+.availabilityInfo {
+  margin-top: 1rem; /* More space above Availability */
+}

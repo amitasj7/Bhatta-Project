@@ -1,0 +1,16 @@
+.form-group {
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Center vertically */
+  margin-bottom: 15px; /* Space between form groups */
+}
+
+.form-group label {
+  margin-right: 10px; /* Space between label and input */
+  flex: 1; /* Optional: to allow label to take some space */
+}
+
+.error {
+  color: red; /* Error message color */
+  margin-top: 5px; /* Space between input and error message */
+  font-size: 0.875rem; /* Optional: smaller font size for error messages */
+}
