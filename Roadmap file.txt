@@ -1,0 +1,15 @@
+1. userRoutes 
+	- /login
+	- /signup
+
+2. Bricks
+	seller:
+	 - add
+	 - update
+	Buyers:
+	 - getAllBricks
+	 - getBrickId  (SellerName)
+	 - getBrickPriceRange  (PriceRange)
+
+
+
