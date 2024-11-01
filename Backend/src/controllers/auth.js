@@ -97,17 +97,28 @@ export const login = async (req, res) => {
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
 
-    // Cookie options
-    const options = {
-      httpOnly: true,
-      secure: false, // for development purpose
-      sameSite: "Lax", // Cross-site requests ke liye
-    };
+    // // Cookie options
+    // const options = {
+    //   httpOnly: true,
+    //   secure: false, // Set secure based on environment
+    //   sameSite: "Lax",
+    //   maxAge: 1 * 60 * 1000, // 1 day in milliseconds
+    // };
 
     return res
       .status(200)
-      .cookie("accessToken", accessToken, options)
-      .cookie("refreshToken", refreshToken, options)
+      .cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: false, // Set to true in production
+        sameSite: "Lax",
+        maxAge: 1 * 60 * 1000, // 15 minutes for access token
+      })
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: false, // Set to true in production
+        sameSite: "Lax",
+        maxAge: 2 * 60 * 1000, // 1h for access token
+      })
       .json({
         status: true,
         message: "User logged in successfully",
@@ -156,81 +167,6 @@ export const logout = async (req, res) => {
     console.log("Logout problem : ", error);
     return res.status(500).json({
       message: error,
-    });
-  }
-};
-export const refreshAccessToken = async (req, res) => {
-  try {
-    // Refresh token ko cookies, body, ya header se check kar rahe hain
-    const incomingRefreshToken =
-      req.cookies?.refreshToken ||
-      req.body?.refreshToken ||
-      req.header("Authorization")?.replace("Bearer ", "");
-
-    if (!incomingRefreshToken) {
-      return res.status(401).json({
-        status: false,
-        message: "Refresh token is missing.",
-      });
-    }
-
-    // Refresh token verify karna
-    const decodedRefreshToken = jwt.verify(
-      incomingRefreshToken,
-      process.env.REFRESH_TOKEN_SECRET
-    );
-
-    // User database mein dhoondhna
-    const user = await User.findById(decodedRefreshToken?._id);
-
-    if (!user) {
-      return res.status(404).json({
-        status: false,
-        message: "User not found",
-      });
-    }
-
-    // Refresh token match karna
-    if (incomingRefreshToken !== user?.refreshToken) {
-      return res.status(403).json({
-        status: false,
-        message: "Refresh token does not match",
-      });
-    }
-
-    // New access token generate karna
-    const newAccessToken = await user.generateAccessToken();
-
-    // Cookie options
-    const options = {
-      httpOnly: true,
-      secure: false,
-      sameSite: "Lax", // Cross-site requests ke liye
-    };
-
-    return res.status(200).cookie("accessToken", newAccessToken, options).json({
-      status: true,
-      accessToken: newAccessToken,
-      refreshToken: incomingRefreshToken,
-    });
-  } catch (error) {
-    console.log("Refresh token error: ", error);
-
-    // Agar JWT verification mein issue hai, to 401 status return karein
-    if (
-      error.name === "JsonWebTokenError" ||
-      error.name === "TokenExpiredError"
-    ) {
-      return res.status(401).json({
-        status: false,
-        message: "Invalid or expired refresh token. Please login again.",
-      });
-    }
-
-    // Kisi aur error ke liye generic server error response
-    res.status(500).json({
-      status: false,
-      message: "Server error. Please try again later.",
     });
   }
 };

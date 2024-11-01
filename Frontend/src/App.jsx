@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element= {<div>Homepage</div>} />
         <Route path="/authentication" element={<AuthenticationPage />} />
 
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile" element={<ProfilePage />} /> 
         <Route
           path="/profile/chat/:userId"
           element={<ProfilePage />} // Pass userId as a prop

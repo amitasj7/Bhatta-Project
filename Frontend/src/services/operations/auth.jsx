@@ -2,9 +2,9 @@
 // dotenv.config();
 import React from "react";
 
-// const baseUrl = process.env.REACT_APP_BASE_URL;
+// const baseUrl = process.env.REACT_APP_BASE_URL; // for create react app
 
-const baseUrl = "http://localhost:5000/api/v1";
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 import axios from "axios";
 
@@ -16,23 +16,33 @@ export const signup = async (userData) => {
       },
     });
 
-    console.log("response data : ", response.data);
+    // console.log("response data : ", response.data);
   } catch (error) {
-    console.error("Error during signup:", error);
+    console.error("Error during signup:", error.response.data.message);
   }
 };
 
 export const login = async (userData) => {
-  try {
-    const response = await axios.post(`${baseUrl}/auth/login`, userData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-     withCredentials: true ,
-    });
+  const response = await axios.post(`${baseUrl}/auth/login`, userData, {
+    withCredentials: true, // Cookies ke liye
+  });
 
-    console.log("response data : ", response.data);
+  return response;
+};
+
+export const renewAccessToken = async () => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/auth/refresh-accessToken`,
+      null,
+      {
+        withCredentials: true, // Cookies ke liye
+      }
+    );
+
+    return response;
   } catch (error) {
-    console.error("Error during sign in:", error);
+    console.error("Error renewing access token:", error.response.data);
+    // Optionally handle token refresh failure
   }
 };

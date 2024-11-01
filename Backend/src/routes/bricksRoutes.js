@@ -22,7 +22,9 @@ import {
   getBricksPriceRange,
 } from "../controllers/bricks.js";
 
-router.get("/getallbricks", getAllBricks);
+import {verifyJWT} from "../middleware/auth.middleware.js";
+
+router.get("/getallbricks", verifyJWT, getAllBricks);
 router.get("/getbricks", getBricks);
 router.get("/getbrickspricerange", getBricksPriceRange);
 

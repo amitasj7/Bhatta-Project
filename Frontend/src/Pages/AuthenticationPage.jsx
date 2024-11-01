@@ -1,16 +1,29 @@
 import React from "react";
 import "./AuthenticationPage.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import * as jwt_decode from "jwt-decode"; // Importing everything from jwt-decode
+ // Correct way to import
+
 // import "font-awesome/css/font-awesome.min.css";
 
-import { signup, login } from "../services/operations/auth.jsx";
+import {
+  signup,
+  login,
+  renewAccessToken,
+} from "../services/operations/auth.jsx";
 
 // Frontend\src\services\operations\auth.jsx
 // Frontend\src\Pages\AuthenticationPage.jsx
 
 function AuthenticationPage() {
   const [isSignUp, setIsSignUp] = useState(false);
+  const navigate = useNavigate(); // navigate function initialize karein
+
+  const [accessToken, setAccessToken] = useState(null);
+  const [refreshToken, setRefreshToken] = useState(null);
 
   const handleSignUp = () => {
     setIsSignUp(true);
@@ -33,7 +46,7 @@ function AuthenticationPage() {
     signup(userData); // Calling the signup function
   };
 
-  const handleSubmitSignin = (e) => {
+  const handleSubmitSignin = async (e) => {
     e.preventDefault();
 
     const userData = {
@@ -41,8 +54,28 @@ function AuthenticationPage() {
       password: e.target.password.value,
     };
 
-    login(userData);
+    try {
+      const response = await login(userData);
+      // console.log("response is  : ", response);
+
+      // console.log("Cookies:", document.cookie);
+
+      if (response.data.status === true) {
+        setAccessToken(response.data.accessToken);
+        setRefreshToken(response.data.refreshToken);
+        // Optionally store them in cookies or local storage
+        // Redirect to profile page on successful login
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.error("Login error:", error.response.data.message);
+      navigate("/authentication");
+    }
   };
+
+ 
+
+ 
 
   return (
     <div className={`container ${isSignUp ? "right-panel-active" : ""}`}>

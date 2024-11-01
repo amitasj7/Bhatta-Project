@@ -1,29 +1,35 @@
 import express from "express";
-import { connectDB } from "./src/config/db.js";
+const app = express();
+
 
 import dotenv from "dotenv";
-
-// frontend and backend jodne ke liye cors use krege
-import cors from "cors";
-
 dotenv.config({
   path: "./.env",
 });
-const app = express();
 
+import cookieParser from "cookie-parser";
+app.use(cookieParser());
+
+// frontend and backend jodne ke liye cors use krege
+import cors from "cors";
 // Frontend se request ko block nahi krega
 // CORS options
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "http://localhost:5173", // frontend ka URL
 
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
-  credentials: true, // Corrected 'Credentials' to 'credentials'
-  allowedHeaders: ["Content-Type", "Authorization"],
-  optionsSuccessStatus: 200,
+  credentials: true, // cookies bhejne ke liye required
+
+  // `allowedHeaders` mein woh headers add karen jo client aur server communicate karenge
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+
+  optionsSuccessStatus: 200, // Older browsers ke liye successful response status
 };
 
 app.use(cors(corsOptions));
 
+
+import { connectDB } from "./src/config/db.js";
 // Connect to MongoDB
 connectDB();
 
