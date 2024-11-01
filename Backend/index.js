@@ -6,10 +6,9 @@ import dotenv from "dotenv";
 // frontend and backend jodne ke liye cors use krege
 import cors from "cors";
 
-import userRoutes from "./src/routes/userRoutes.js";
-import bricksRoutes from "./src/routes/bricksRoutes.js";
-
-dotenv.config();
+dotenv.config({
+  path: "./.env",
+});
 const app = express();
 
 // Frontend se request ko block nahi krega
@@ -46,7 +45,11 @@ app.get(default_routes, (req, res) => {
   });
 });
 
+// import routes
+import userRoutes from "./src/routes/userRoutes.js";
+import bricksRoutes from "./src/routes/bricksRoutes.js";
+
+// redirect routes
 app.use("/api/v1/auth", userRoutes);
 // app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/bricks", bricksRoutes);
-
