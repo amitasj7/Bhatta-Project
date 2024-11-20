@@ -1,13 +1,12 @@
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
-// Signup controller
 export const signup = async (req, res) => {
-  const { name, email, password, location } = req.body;
+  const { name, email, phone_number, password, location, role } = req.body;
 
-  // Check if req.body is empty
-  if (!name || !email || !password || !location) {
-    console.log("Request body is empty or missing fields:", req.body); // Debugging ke liye
+  // Check if req.body is empty or missing required fields
+  if (!name || !email || !password || !location || !phone_number || !role) {
+    console.log("Request body is empty or missing fields:", req.body); // For debugging
     return res.status(400).json({
       status: false,
       message: "Missing required fields",
@@ -15,28 +14,33 @@ export const signup = async (req, res) => {
   }
 
   try {
-    // 1. Check if user already exists
-    const existingUser = await User.findOne({ email });
+    // 1. Check if user already exists with either email or phone_number
+    const existingUser = await User.findOne({
+      $or: [{ email: email }, { phone_number: phone_number }],
+    });
+
     if (existingUser) {
       return res.status(400).json({
         status: false,
-        message: "User already exists with this mobileNo",
+        message: "User already exists with this email or phone number",
       });
     }
 
-    // 2. Password ko hash karo
+    // 2. Password hashing (optional step for added security)
     // const hashedPassword = await bcrypt.hash(password, 12);
     const hashedPassword = password;
 
-    // 3. Naya user create karo
+    // 3. Create a new user
     const newUser = new User({
       name,
       email,
       password: hashedPassword,
       location,
+      phone_number,
+      role,
     });
 
-    // 4. User ko save karo
+    // 4. Save the new user to the database
     await newUser.save();
 
     // 5. Success response
@@ -46,6 +50,7 @@ export const signup = async (req, res) => {
       user: newUser,
     });
   } catch (error) {
+    // Log the error and return a server error response
     console.error("Signup error:", error);
     res.status(500).json({
       status: false,
@@ -55,10 +60,10 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email = "", phone_number = "", password } = req.body;
 
   // Check if both email and password are provided
-  if (!email || !password) {
+  if ((!email && !phone_number) || !password) {
     return res.status(400).json({
       status: false,
       message: "Please fill all fields",
@@ -67,7 +72,9 @@ export const login = async (req, res) => {
 
   try {
     // Database me user find karo based on email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      $or: [{ email: email }, { phone_number: phone_number }],
+    });
 
     // Agar user nahi mila
     if (!user) {

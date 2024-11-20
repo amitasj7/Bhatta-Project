@@ -1,0 +1,22 @@
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+  border: 0;
+
+  background: linear-gradient(to right, #e0ccbe, #f1ebe7);
+  color: #000000; /* Set text color */
+
+  width: 100vw;
+  height: 100vh;
+
+
+
+  font-family: Arial, sans-serif;
+  font-size: 16px; /* Base font size for rem */
+
+  list-style: none;
+  overflow: hidden; 
+}

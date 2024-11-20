@@ -1,0 +1,111 @@
+/* MainContent Styles */
+.main-content {
+  width: 100vw;
+  margin-top: 6rem; /* Adjust this based on the navbar's height */
+  height: calc(100vh - 6rem); /* Remaining height after navbar */
+  display: flex; /* Optional: For aligning child elements */
+  flex-direction: row; /* Adjust as per content layout */
+  justify-content: flex-start; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+
+  /* overflow-y: auto; Enable vertical scrolling if content overflows */
+
+  /* background-color: #bb6b36; Example background color */
+}
+
+.details-content {
+  width: 50%; /* Takes half width (optional adjustment) */
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+
+  padding-left: 110px;
+  padding-top: 130px;
+
+  /* background-color: #de9768; */
+}
+.details-content h1 {
+  font-size: 75px;
+  font-weight: bold;
+
+  color: #be4a00;
+}
+.del {
+  display: flex;
+  gap: 2rem;
+}
+
+.delivery {
+  width: 250px;
+
+  font-size: 30px;
+  font-weight: 400;
+
+  margin-top: 10px;
+}
+
+
+
+.truck-logo {
+  position: relative;
+  animation: moveRight 3s ease-in infinite;
+}
+
+@keyframes moveRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(25rem);
+  }
+}
+
+.custom-divider {
+  height: 0.5px; /* Thickness of the ruler */
+  width: 550px; /* Width of the ruler */
+  background-color: black; /* Black color */
+  border: none; /* Remove any default border */
+
+  margin-top: 40px;
+  margin-left: -5px;
+}
+.details-content p {
+  width: 250px;
+
+  font-weight: 24px;
+  font-weight: 500;
+
+  margin-bottom: 60px;
+}
+
+.image-content {
+  width: 50%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+
+  /* background-color: #f1711b; */
+}
+
+.image-content div {
+  margin-top: 1rem;
+  width: 23rem; /* Full width of the container */
+  /* height: 250px; Set the desired height */
+  overflow: hidden; /* Optional: Prevent overflow of the image */
+}
+
+.image-content div img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover; /* Change this to 'contain' or 'fill' based on your need */
+}

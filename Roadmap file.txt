@@ -13,3 +13,25 @@
 
 
 
+3. accesstoken ko  renew karo 
+4. refreshtoken se logout karo 
+
+5. 3 roles
+	- customer
+	- bhatta_owner
+	- admin
+
+
+1. Reponsive kese banyae
+	- window screen, 
+	- android screen
+
+2. width, height, parent css 
+
+
+3. width, height - vw,vh, %
+   any - rem
+
+
+-Phone_number
+-role

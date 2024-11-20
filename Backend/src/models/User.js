@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true, // Email unique hona chahiye
   },
+  phone_number: { type: String, required: true, unique: true },
   password: {
     type: String,
     required: true,
@@ -20,6 +21,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  // Role field to differentiate users
+  role: {
+    type: String,
+    enum: ["customer", "bhatta_owner", "admin"],
+    default: "customer",
+    required: true,
+  },
+  orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
+  created_at: { type: Date, default: Date.now },
   refreshToken: {
     type: String,
   },

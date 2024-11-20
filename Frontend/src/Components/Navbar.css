@@ -1,0 +1,85 @@
+
+/* Navbar Styles */
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: transparent;
+    box-shadow: none;
+    padding: 0rem 3rem; /* Adjust navbar padding */
+    /* background-color: aqua; */
+    
+}
+
+/* Logo */
+.navbar-logo img {
+    height: 3.125rem; /* 50px */
+    width: 3.125rem; /* 50px */
+    /* margin-left: 2.125rem; 34px */
+}
+
+/* Navbar Links */
+.navbar-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3.125rem; /* 50px */
+    list-style: none;
+    background-color: #de9768;
+    padding: 0rem 2rem; /* 3px 50px */
+    border-radius: 3.5625rem; /* 57px */
+
+    margin-right: -4rem;
+}
+
+/* Navbar Link Styles */
+.navbar-links li a {
+    text-decoration: none;
+    color: black;
+    font-size: 0.8rem; /* 16px */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    padding: 0.5rem 1rem; /* 5px 10px */
+    border-radius: 7.1875rem; /* 115px */
+    display: inline-block;
+    position: relative; /* Ensures proper stacking */
+    z-index: 1; /* Make sure hovered item appears on top */
+}
+
+/* Hover Effect */
+.navbar-links li a:hover {
+    background-color: #f1711b;
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10; /* Ensure the hovered item is on top */
+    transform: scale(1.2); /* Slightly increase size without changing layout */
+}
+
+/* Active and Focused Link Styles */
+.navbar-links li a:focus,
+.navbar-links li a:active {
+    background-color: #f1711b;
+    color: white;
+    padding: 0.5rem 1rem; /* Consistent padding */
+    border-radius: 7.1875rem; /* Rounded corners */
+    outline: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transform: none; /* No transform effect */
+}
+
+/* Navbar Actions (Buttons or other items) */
+.navbar-actions {
+    display: flex;
+    gap: 1rem; /* 10px */
+    /* padding: 0.125rem 0.625rem; 2px 10px */
+    /* margin-right: 3rem; 30px */
+
+    /* background-color: #f1711b; */
+    margin-right: 6rem;
+}
+

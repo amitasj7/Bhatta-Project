@@ -1,20 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  background: #f6f5f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-family: "Montserrat", sans-serif;
-  height: 100vh;
-  margin: -20px 0 50px;
-}
-
 h1 {
   font-weight: bold;
   margin: 0;
@@ -45,8 +30,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #ff4b2b;
-  background-color: #ff4b2b;
+  border: 1px solid #f1711b;
+  background-color: #f1711b;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -80,12 +65,22 @@ form {
   text-align: center;
 }
 
-input {
+input,
+select {
   background-color: #eee;
   border: none;
   padding: 12px 15px;
   margin: 8px 0;
   width: 100%;
+  border-radius: 6px;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+  font-size: 16px; /* Consistent text size */
+}
+
+select {
+  appearance: none; /* Removes browser-specific dropdown styling */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
 }
 
 .container {
@@ -160,9 +155,9 @@ input {
 }
 
 .overlay {
-  background: #ff416c;
-  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  background: #ff832b;
+  background: -webkit-linear-gradient(to right, #e09e3b, #ff832b);
+  background: linear-gradient(to right, #ff832b, #d99633);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -249,4 +244,78 @@ footer i {
 footer a {
   color: #3c97bf;
   text-decoration: none;
+}
+/* Password form container */
+.password-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 10%;
+  /* background-color: aqua; */
+}
+
+/* Input group for password fields */
+.password-input-group {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  /* background-color: #d99633; */
+}
+
+/* Individual password input field */
+.password-input-field {
+  position: relative;
+  width: 50%;
+  /* background-color: blue; */
+}
+
+/* Styling for input fields */
+.password-input-field input {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Toggle icon for password visibility */
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 1rem;
+}
+
+/* Error message styling */
+.password-error-message {
+  margin-left: -13.4rem;
+ margin-top: -0.2rem;
+ 
+  color: red;
+  font-size: 0.9rem;
+  width: 100%;
+  opacity: 0; /* Initially hidden */
+ 
+}
+
+/* Animation definition */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add this class when the error message appears */
+.animated-error {
+  animation: fadeIn 0.5s forwards ease-in-out;
 }

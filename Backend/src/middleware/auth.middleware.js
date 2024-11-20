@@ -15,7 +15,7 @@ export const verifyJWT = async (req, res, next) => {
       req.header("Authorization")?.replace("Bearer ", "");
 
     // If access token is missing, attempt to refresh it
-    if (!accessToken || !refreshToken) {
+    if ( !accessToken  || !refreshToken ) {
       return await refreshAccessToken(req, res); // Return the response from refreshAccessToken
     }
 
@@ -29,7 +29,7 @@ export const verifyJWT = async (req, res, next) => {
       // Invalid token, send response
       return res.status(401).json({
         status: false,
-        message: "Invalid or expired token.",
+        message: "Invalid or expired Access token.",
       });
     }
 

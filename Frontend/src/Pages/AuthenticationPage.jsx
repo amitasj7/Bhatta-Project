@@ -1,11 +1,13 @@
 import React from "react";
 import "./AuthenticationPage.css";
 
+import { showToast } from "../Components/ToastNotification.jsx";
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import * as jwt_decode from "jwt-decode"; // Importing everything from jwt-decode
- // Correct way to import
+// Correct way to import
 
 // import "font-awesome/css/font-awesome.min.css";
 
@@ -25,10 +27,41 @@ function AuthenticationPage() {
   const [accessToken, setAccessToken] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+
+    // Validate password match
+    if (confirmPassword && value !== confirmPassword) {
+      setPasswordError("Passwords do not match");
+    } else {
+      setPasswordError("");
+    }
+  };
+  const handleConfirmPasswordChange = (e) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+
+    // Validate password match
+    if (password && value !== password) {
+      setPasswordError("Passwords do not match");
+    } else {
+      setPasswordError("");
+    }
+  };
+
   const handleSignUp = () => {
     setIsSignUp(true);
   };
-
   const handleSignIn = () => {
     setIsSignUp(false);
   };
@@ -38,44 +71,72 @@ function AuthenticationPage() {
 
     const userData = {
       name: e.target.name.value,
+      role: e.target.role.value, // Added role
+      phone_number: e.target.phone_number.value, // Added phone_number
       email: e.target.email.value,
       password: e.target.password.value,
       location: e.target.location.value,
     };
 
+    console.log("userData", userData);
+
     signup(userData); // Calling the signup function
   };
-
   const handleSubmitSignin = async (e) => {
     e.preventDefault();
 
-    const userData = {
-      email: e.target.email.value,
-      password: e.target.password.value,
-    };
+    const loginData = e.target.email_or_phone.value; // Single field for email or phone number
+    const password = e.target.password.value;
+
+    // Check if input is email or phone number using a regular expression
+    const isEmail = /^\S+@\S+\.\S+$/.test(loginData); // Regex to check if it's a valid email
+    const isPhoneNumber = /^[0-9]{10}$/.test(loginData); // Regex for phone number (10 digits)
+
+    let userData = {};
+    if (isEmail) {
+      userData = { email: loginData };
+    } else if (isPhoneNumber) {
+      userData = { phone_number: loginData };
+    } else {
+      showToast("Please enter a valid email or phone number", "error");
+      return;
+    }
+
+    userData.password = password;
 
     try {
       const response = await login(userData);
-      // console.log("response is  : ", response);
 
-      // console.log("Cookies:", document.cookie);
-
+      // If the login is successful
       if (response.data.status === true) {
         setAccessToken(response.data.accessToken);
         setRefreshToken(response.data.refreshToken);
-        // Optionally store them in cookies or local storage
+
+        // Show success notification
+        showToast("Login successful! Welcome back!", "success");
+
         // Redirect to profile page on successful login
         navigate("/profile");
       }
     } catch (error) {
-      console.error("Login error:", error.response.data.message);
+      // If there is an error during login
+      console.error(
+        "Login error:",
+        error.response ? error.response.data.message : error.message
+      );
+
+      // Show error notification
+      showToast(
+        error.response
+          ? error.response.data.message
+          : "Login failed. Please try again.",
+        "error"
+      );
+
+      // Navigate to the authentication page if login fails
       navigate("/authentication");
     }
   };
-
- 
-
- 
 
   return (
     <div className={`container ${isSignUp ? "right-panel-active" : ""}`}>
@@ -95,15 +156,84 @@ function AuthenticationPage() {
             </a>
           </div>
           <span>or use your email for registration</span>
-          <input type="text" name="name" placeholder="Name" required />
-          <input type="email" name="email" placeholder="Email" required />
+          <input type="text" name="name" placeholder="Full Name" required />
+          <select name="role" required>
+            <option value="" disabled selected>
+              Select One Role
+            </option>
+            <option value="customer">customer - Buyer</option>
+            <option value="bhatta_owner">Bhatta Owner - Seller</option>
+            <option value="admin">Admin</option>
+          </select>
+
           <input
-            type="password"
-            name="password"
-            placeholder="Password"
+            type="tel"
+            name="phone_number"
+            placeholder="Phone Number"
             required
+            pattern="[0-9]{10}"
+            title="Please enter a 10-digit phone number"
           />
+          <input type="email" name="email" placeholder="Email" required />
           <input type="text" name="location" placeholder="Location" required />
+
+          {/* Password and confirm password */}
+
+          <div className="password-form-container">
+            <div className="password-input-group">
+              {/* Password Input */}
+              <div className="password-input-field">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  required
+                />
+                <span
+                  onClick={togglePasswordVisibility}
+                  className="password-toggle-icon"
+                >
+                  {showPassword ? (
+                    <i className="fa fa-eye-slash"></i>
+                  ) : (
+                    <i className="fa fa-eye"></i>
+                  )}
+                </span>
+              </div>
+
+              {/* Confirm Password Input */}
+              <div className="password-input-field">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                  required
+                />
+                <span
+                  onClick={togglePasswordVisibility}
+                  className="password-toggle-icon"
+                >
+                  {showPassword ? (
+                    <i className="fa fa-eye-slash"></i>
+                  ) : (
+                    <i className="fa fa-eye"></i>
+                  )}
+                </span>
+              </div>
+            </div>
+
+            {/* Error Message */}
+            {passwordError && (
+              <p className="password-error-message animated-error">
+                {passwordError}
+              </p>
+            )}
+          </div>
+
           <button type="submit">Sign Up</button>
         </form>
       </div>
@@ -118,22 +248,47 @@ function AuthenticationPage() {
               <i className="fa fa-google"></i>
             </a>
             <a href="#" className="social">
-              <i className="fa fa-linkedin"></i>{" "}
-              {/* Use 'fa fa-linkedin' for LinkedIn icon */}
+              <i className="fa fa-linkedin"></i>
             </a>
           </div>
           <span>or use your account</span>
-          <input type="email" name="email" placeholder="Email" required />
           <input
-            type="password"
-            name="password"
-            placeholder="Password"
+            type="text"
+            name="email_or_phone"
+            placeholder="Email or Phone Number"
             required
           />
+          <div style={{ position: "relative", width: "100%" }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <span
+              onClick={togglePasswordVisibility}
+              style={{
+                position: "absolute",
+                top: "50%",
+                right: "15px",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                color: "#888",
+                fontSize: "1.2rem",
+              }}
+            >
+              {showPassword ? (
+                <i className="fa fa-eye-slash"></i>
+              ) : (
+                <i className="fa fa-eye"></i>
+              )}
+            </span>
+          </div>
           <a href="#">Forgot your password?</a>
           <button type="submit">Sign In</button>
         </form>
       </div>
+
       <div className="overlay-container">
         <div className="overlay">
           <div className="overlay-panel overlay-left">

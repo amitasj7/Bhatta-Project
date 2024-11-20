@@ -1,6 +1,5 @@
-// import dotenv from 'dotenv';
-// dotenv.config();
 import React from "react";
+import { showToast } from "../../Components/ToastNotification";
 
 // const baseUrl = process.env.REACT_APP_BASE_URL; // for create react app
 
@@ -16,9 +15,26 @@ export const signup = async (userData) => {
       },
     });
 
-    // console.log("response data : ", response.data);
+    // Show success notification on successful signup
+    showToast("Signup successful! Please Login", "success");
+    console.log("Response data:", response.data);
+
+    return response.data;
   } catch (error) {
-    console.error("Error during signup:", error.response.data.message);
+    if (error.response) {
+      // Show error notification for known backend errors
+      showToast(error.response.data.message, "error");
+      console.error("Error during signup:", error.response.data.message);
+      return { status: false, message: error.response.data.message };
+    } else {
+      // Show error notification for network errors
+      showToast("Network error. Please try again.", "error");
+      console.error("Network Error:", error.message);
+      return {
+        status: false,
+        message: "Something went wrong. Please try again.",
+      };
+    }
   }
 };
 
@@ -26,6 +42,9 @@ export const login = async (userData) => {
   const response = await axios.post(`${baseUrl}/auth/login`, userData, {
     withCredentials: true, // Cookies ke liye
   });
+
+
+  console.log("Response data:", response.data);
 
   return response;
 };
