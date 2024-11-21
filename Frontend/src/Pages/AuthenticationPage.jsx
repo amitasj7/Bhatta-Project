@@ -66,8 +66,8 @@ function AuthenticationPage() {
     setIsSignUp(false);
   };
 
-  const handleSubmitSignup = (e) => {
-    e.preventDefault(); // to stop form default nature
+  const handleSubmitSignup = async (e) => {
+    e.preventDefault(); // Stop form's default behavior
 
     const userData = {
       name: e.target.name.value,
@@ -75,13 +75,21 @@ function AuthenticationPage() {
       phone_number: e.target.phone_number.value, // Added phone_number
       email: e.target.email.value,
       password: e.target.password.value,
+      confirmPassword: e.target.confirmPassword.value,
       location: e.target.location.value,
     };
 
     console.log("userData", userData);
 
-    signup(userData); // Calling the signup function
+    // Call the signup function and handle the response
+    const response = await signup(userData);
+
+    if (response.data && response.data.status) {
+      // Reset form if signup is successful
+      e.target.reset();
+    }
   };
+
   const handleSubmitSignin = async (e) => {
     e.preventDefault();
 

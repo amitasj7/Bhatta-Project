@@ -1,0 +1,27 @@
+.menu-section {
+  width: 100%;
+  margin-bottom: 20px; /* Add spacing between sections */
+  /* background-color: red; */
+  margin-left: 56px;
+}
+
+.menu-section h1 {
+  font-size: 20px;
+  font-weight: 100;
+  margin-bottom: -5px;
+
+  /* background-color: red; */
+}
+
+.menu-section ul {
+  list-style-type: none;
+  padding: 0;
+
+  /* background-color:teal; */
+}
+
+.menu-section li {
+  margin-bottom: 2px; /* Add spacing between list items */
+
+  /* background-color: blue; */
+}

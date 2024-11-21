@@ -1,0 +1,15 @@
+.DashboardHomePage-main {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 40px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+
+  font-family: "Judson", serif; /* Use 'serif' as a fallback */
+
+  /* background-color: red; */
+}

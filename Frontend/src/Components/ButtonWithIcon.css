@@ -1,0 +1,34 @@
+.button-with-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+  background-color: rgba(206, 135, 86, 0.51); 
+}
+
+.button-with-icon.icon-only {
+  width: 70px; /* Fixed width for buttons with only an icon */
+  justify-content: center;
+}
+
+.button-with-icon .icon {
+  font-size: 28px;
+  color: black; /* Icon color */
+}
+
+.button-with-icon .button-name {
+  font-size: 15px;
+ 
+  margin-left: 8px; /* Space between icon and text */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.button-with-icon:hover {
+  background-color: rgba(166, 106, 66, 0.51)
+}

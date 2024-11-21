@@ -1,0 +1,15 @@
+.dashboard {
+  font-family: "Judson", serif; /* Use 'serif' as a fallback */
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: row;
+
+  /* background-color: aquamarine; */
+}
+
+.main-body {
+  flex: 1; /* Remaining space automatically le lega */
+  background: linear-gradient(to bottom, #f1ebe7, #ce8756);
+}

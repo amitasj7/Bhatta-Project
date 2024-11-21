@@ -2,10 +2,26 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
-  const { name, email, phone_number, password, location, role } = req.body;
+  const {
+    name,
+    email,
+    phone_number,
+    password,
+    confirmPassword,
+    location,
+    role,
+  } = req.body;
 
   // Check if req.body is empty or missing required fields
-  if (!name || !email || !password || !location || !phone_number || !role) {
+  if (
+    !name ||
+    !email ||
+    !password ||
+    !confirmPassword ||
+    !location ||
+    !phone_number ||
+    !role
+  ) {
     console.log("Request body is empty or missing fields:", req.body); // For debugging
     return res.status(400).json({
       status: false,
@@ -13,6 +29,13 @@ export const signup = async (req, res) => {
     });
   }
 
+  if (password !== confirmPassword) {
+    console.log("Password and confirm Password do not match");
+    return res.status(401).json({
+      status: false,
+      message: "Password and confirm Password do not match",
+    });
+  }
   try {
     // 1. Check if user already exists with either email or phone_number
     const existingUser = await User.findOne({
@@ -118,13 +141,13 @@ export const login = async (req, res) => {
         httpOnly: true,
         secure: false, // Set to true in production
         sameSite: "Lax",
-        maxAge: 1 * 60 * 1000, // 15 minutes for access token
+        maxAge: 1 * 60 * 60 * 1000, // 1 hour for access token
       })
       .cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: false, // Set to true in production
         sameSite: "Lax",
-        maxAge: 2 * 60 * 1000, // 1h for access token
+        maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day for access token
       })
       .json({
         status: true,

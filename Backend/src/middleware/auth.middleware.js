@@ -105,7 +105,7 @@ export const refreshAccessToken = async (req, res) => {
         httpOnly: true,
         secure: false, // Set to true in production
         sameSite: "Lax",
-        maxAge: 1 * 60 * 1000, // 1 minute for access token
+        maxAge: 1 * 60 * 60 * 1000, // 1h for access token
       })
       .status(200)
       .json({

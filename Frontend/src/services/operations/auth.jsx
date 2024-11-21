@@ -19,7 +19,7 @@ export const signup = async (userData) => {
     showToast("Signup successful! Please Login", "success");
     console.log("Response data:", response.data);
 
-    return response.data;
+    return response; // return response
   } catch (error) {
     if (error.response) {
       // Show error notification for known backend errors

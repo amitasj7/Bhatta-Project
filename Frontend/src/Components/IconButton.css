@@ -1,0 +1,53 @@
+.icon-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 14px;
+  border-radius: 15px;
+  cursor: pointer;
+  position: relative; /* Ensure proper positioning for hover and active states */
+  color: white; /* Initial text color */
+  transition: background-color 0.3s ease, width 0.3s ease, transform 0.1s ease; /* Transition for background color, width, and transform */
+  width: 50%;
+}
+
+.icon-button img {
+  width: 25px;
+  height: 32px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* Makes PNG white initially */
+  transition: filter 0.2s ease; /* Smooth icon color transition */
+}
+
+.icon-button:hover {
+  background-color: #b87857; /* Set background color to #b87857 on hover */
+  color: black; /* Change text color to black on hover */
+}
+
+.icon-button:hover img {
+  filter: brightness(0); /* Change icon color to black on hover */
+}
+
+.icon-button:active {
+  background-color: #b87857; /* Keep the background color as #b87857 on active */
+  color: black; /* Ensure text stays black when active */
+  transform: scale(0.95); /* Shrink the button a bit to create a pressed effect */
+}
+
+.icon-button:active img {
+  filter: brightness(0); /* Ensure icon stays black when active */
+}
+
+/* Add background color when button is active based on route */
+.icon-button.active {
+  background-color: #b87857; /* Active background color */
+  color: black; /* Active text color */
+}
+.icon-button.active img {
+  filter: brightness(0);
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 100;
+}

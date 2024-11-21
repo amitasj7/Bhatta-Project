@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  justify-content: space-between; /* To space out search bar and buttons */
+  align-items: center;
+  
+
+  /* background-color: #d67575;
+    border-bottom: 1px solid #ddd; */
+  /* background-color: aqua; */
+  margin-right: 6%;
+}
+.search-bar {
+  flex-grow: 1;
+  max-width: 60%; /* Search bar takes 60% width of the header */
+  height: 60px;
+  position: relative; /* Add relative positioning to the container */
+  margin-top: -14px;
+}
+
+.search-container {
+  position: relative; /* Ensure the search icon is placed inside the container */
+  width: 100%;
+}
+
+.search-input {
+  font-family: "Judson", serif;
+  height: 100%;
+  width: 100%;
+  padding: 10px 40px; /* Add extra padding on the right side for the icon */
+  font-size: 21px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: rgba(206, 135, 86, 0.51); /* Background with 79% opacity */
+
+  /* margin-right: 20px; */
+}
+
+.search-icon {
+  position: absolute;
+  top: 65%;
+  right: 60px; /* Adjust the right spacing for the icon */
+  transform: translateY(-50%); /* Center the icon vertically */
+  font-size: 24px; /* Icon size */
+  color: #555; /* Icon color */
+  pointer-events: none; /* Prevent the icon from interfering with input field events */
+}
+
+/* Optional: Hover effect for the icon */
+.search-icon:hover {
+  color: #333;
+}
