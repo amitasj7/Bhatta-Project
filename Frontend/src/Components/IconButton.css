@@ -1,53 +1,55 @@
 .icon-button {
   display: flex;
+
   align-items: center;
-  gap: 12px;
-  padding: 5px 14px;
-  border-radius: 15px;
+  gap: 0.80rem; /* 12px to rem */
+  padding: 0.3rem 0.875rem; /* 5px 14px to rem */
+  border-radius: 0.6rem; /* 15px to rem */
   cursor: pointer;
-  position: relative; /* Ensure proper positioning for hover and active states */
-  color: white; /* Initial text color */
-  transition: background-color 0.3s ease, width 0.3s ease, transform 0.1s ease; /* Transition for background color, width, and transform */
+  position: relative;
+  color: white;
+  transition: background-color 0.3s ease, width 0.3s ease, transform 0.1s ease;
   width: 50%;
+  margin-bottom: 0.2rem;
 }
 
 .icon-button img {
-  width: 25px;
-  height: 32px;
+  width: 1.3rem; /* 25px to rem */
+  height: 1.5rem; /* 32px to rem */
   object-fit: contain;
-  filter: brightness(0) invert(1); /* Makes PNG white initially */
-  transition: filter 0.2s ease; /* Smooth icon color transition */
+  filter: brightness(0) invert(1);
+  transition: filter 0.2s ease;
 }
 
 .icon-button:hover {
-  background-color: #b87857; /* Set background color to #b87857 on hover */
-  color: black; /* Change text color to black on hover */
+  background-color: #b87857;
+  color: black;
 }
 
 .icon-button:hover img {
-  filter: brightness(0); /* Change icon color to black on hover */
+  filter: brightness(0);
 }
 
 .icon-button:active {
-  background-color: #b87857; /* Keep the background color as #b87857 on active */
-  color: black; /* Ensure text stays black when active */
-  transform: scale(0.95); /* Shrink the button a bit to create a pressed effect */
+  background-color: #b87857;
+  color: black;
+  transform: scale(0.95);
 }
 
 .icon-button:active img {
-  filter: brightness(0); /* Ensure icon stays black when active */
+  filter: brightness(0);
 }
 
-/* Add background color when button is active based on route */
 .icon-button.active {
-  background-color: #b87857; /* Active background color */
-  color: black; /* Active text color */
+  background-color: #b87857;
+  color: black;
 }
+
 .icon-button.active img {
   filter: brightness(0);
 }
 
 .name {
-  font-size: 20px;
+  font-size: 1rem; /* 20px to rem */
   font-weight: 100;
 }

@@ -3,7 +3,7 @@ import IconButton from "./IconButton"; // Assuming you already have this compone
 
 import "./MenuSection.css";
 
-const MenuSection = ({ title, items, route }) => {
+const MenuSection = ({ title, items }) => {
   return (
     <div className="menu-section">
       <h1>{title}</h1>

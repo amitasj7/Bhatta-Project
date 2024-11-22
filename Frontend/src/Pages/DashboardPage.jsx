@@ -8,16 +8,14 @@ import MainBody from "../Components/DashboardHomePage";
 
 const DashboardPage = () => {
   return (
-    <>
-      <div className="dashboard">
-        <Drawer />
+    <div className="dashboard">
+      <Drawer />
 
-        <div className="main-body">
-          {/* Outlet will render the content based on the nested route */}
-          <Outlet />
-        </div>
+      <div className="main-body">
+        {/* Outlet will render the content based on the nested route */}
+        <Outlet />
       </div>
-    </>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@
   /* background-color: #d67575;
     border-bottom: 1px solid #ddd; */
   /* background-color: aqua; */
-  margin-right: 6%;
+  /* margin-right: 6%; */
 }
 .search-bar {
   flex-grow: 1;
@@ -49,4 +49,22 @@
 /* Optional: Hover effect for the icon */
 .search-icon:hover {
   color: #333;
+}
+
+.message-section{  
+
+  margin-left: 3%;
+ 
+  flex : 1; 
+
+
+  display: flex;
+  gap: 4%;
+
+  /* justify-content: space-between; */
+
+
+
+  /* background-color: aqua; */
+
 }

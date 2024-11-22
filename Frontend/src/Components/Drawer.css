@@ -1,42 +1,36 @@
 /* Drawer Container */
-
 .drawer {
-  width: 22%;
+  width: 22vw; /* Set width to relative unit */
   height: 100vh; /* Full height */
   background: linear-gradient(to bottom, #c3967f, #bec1ac);
   display: flex;
   flex-direction: column; /* Stack children vertically */
-  justify-content: space-evenly;
+  justify-content: space-between; /* Ensure content is spaced between and logout is at the bottom */
   align-items: flex-start; /* Align children to the left */
+  padding-bottom: 1rem; /* Give some space at the bottom */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
 }
-
-
 
 /* Logo and Name Section */
 .logo-name {
   display: flex;
   align-items: center; /* Vertically center logo and name */
-  gap: 20px; /* Space between logo and name */
+  gap: 2rem; /* Space between logo and name */
+  margin: 0rem 3rem; /* Margin with relative units */
+  margin-top: 0.9rem;
 
-  margin: 20px 57px;
-
-  /* background-color: red; */
+  /* background-color: #8c9458; */
 }
 
 /* Logo Styling */
 .brick-logo {
-  overflow: hidden;
-  width: 50px;
-  height: 45px;
-  /* border-radius: 50%; Make the logo circular */
-  /* background-color: white; */
+  width: 3rem; /* Width with relative unit */
+  height: 2.5rem; /* Height with relative unit */
 }
-.brickflow-logo {
-  overflow: hidden;
-  width: 150px;
-  height: 35px;
 
-  /* background-color: aquamarine; */
+.brickflow-logo {
+  width: 7rem; /* Width with relative unit */
+  height: 4rem; /* Height with relative unit */
 }
 
 .logo-name img {
@@ -46,31 +40,26 @@
 }
 
 .drawer-title {
-
   width: 100%;
-
   color: white;
-  size: 32px;
+  font-size: 1.5rem; /* Relative font size */
   font-weight: bold;
-  
-  margin: 40px 0px; 
-
-  /* background-color: rgb(27, 24, 24); */
-
-  
+  /* margin: rem 0; Margin with relative units */
 }
 
-
+/* Logout Section */
 .logout {
   display: flex; /* Use flexbox to align icon and text in a row */
   align-items: center; /* Vertically center the content */
   justify-content: center;
   width: 90%; /* Full width of the parent */
-  margin: 10px 10px; /* Left and right margin */
-  padding: 12px 0; /* Vertical padding */
+ 
+  /* margin: 0rem 1rem; */
+  margin-left: 5%;
+  padding: 1rem 0; /* Vertical padding */
   background-color: #aab17e; /* Background color */
   color: black; /* Text color */
-  border-radius: 15px; /* Rounded corners */
+  border-radius: 1rem; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
   transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for background color and scaling */
 }
@@ -85,10 +74,10 @@
 }
 
 .logout-icon {
-  margin-right: 15px; /* Space between the icon and text */
-  font-size: 24px; /* Icon size */
+  margin-right: 1rem; /* Space between the icon and text */
+  font-size: 1.35rem; /* Icon size with relative unit */
 }
 
 .logout-text {
-  font-size: 20px;
+  font-size: 1.0rem; /* Text size with relative unit */
 }

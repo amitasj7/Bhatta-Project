@@ -1,22 +1,20 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom"; // useNavigate hook and useLocation for checking the current route
+import { useNavigate, useLocation } from "react-router-dom";
 import "./IconButton.css";
 
 const IconButton = ({ icon, name, route }) => {
-  const navigate = useNavigate(); // navigate hook
-  const location = useLocation(); // useLocation to get the current route
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = () => {
-    navigate("/dashboard" + route); // navigate to the route when clicked
+    navigate("/dashboard" + route);
   };
 
-  // Match current route with the button route, assuming "/dashboard" is the parent path
   const isActive = location.pathname === "/dashboard" + route;
 
-  // console.log("location : ", location.pathname, route);
   return (
     <div
-      className={`icon-button ${isActive ? "active" : ""}`} // Add "active" class when route matches
+      className={`icon-button ${isActive ? "active" : ""}`}
       onClick={handleClick}
     >
       <img src={icon} alt={`${name} icon`} className="icon" />

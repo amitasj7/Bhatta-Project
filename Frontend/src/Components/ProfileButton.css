@@ -1,0 +1,43 @@
+.profile-button {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Take the remaining width */
+  padding: 0 15px;
+  height: 60px;
+  border-radius: 15px;
+  background-color: rgba(206, 135, 86, 0.51);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  overflow: hidden;
+  min-width: 0; /* Prevent overflow in flex containers */
+}
+
+.profile-button:hover {
+  background-color: rgba(166, 106, 66, 0.51);
+}
+
+.profile-image {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%; /* Circular shape */
+  overflow: hidden; /* Crop the image */
+  margin-right: 10px;
+  flex-shrink: 0; /* Prevent the image from shrinking */
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-size: 18px;
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1; /* Allow the text to take available space */
+  min-width: 0; /* Ensure it doesn't overflow the container */
+  text-align: left; /* Align text to the start */
+}

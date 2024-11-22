@@ -1,27 +1,20 @@
 .menu-section {
   width: 100%;
-  margin-bottom: 20px; /* Add spacing between sections */
-  /* background-color: red; */
-  margin-left: 56px;
+  /* margin-bottom: 1rem; Increased spacing between sections */
+  margin-left: 4vw; /* Margin using relative unit */
 }
 
 .menu-section h1 {
-  font-size: 20px;
+  font-size: 1.08rem; /* Font size with relative unit */
   font-weight: 100;
-  margin-bottom: -5px;
-
-  /* background-color: red; */
+  margin-bottom: -1.1rem; /* Adjust margin for better spacing */
 }
 
 .menu-section ul {
   list-style-type: none;
   padding: 0;
-
-  /* background-color:teal; */
 }
 
 .menu-section li {
-  margin-bottom: 2px; /* Add spacing between list items */
-
-  /* background-color: blue; */
+  /* margin-bottom: 1rem; Add spacing between list items */
 }
