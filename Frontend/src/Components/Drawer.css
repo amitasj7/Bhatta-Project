@@ -67,7 +67,7 @@
   color: black; /* Text color */
   border-radius: 1rem; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for background color and scaling */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for background color and scaling */
 }
 
 .logout:hover {

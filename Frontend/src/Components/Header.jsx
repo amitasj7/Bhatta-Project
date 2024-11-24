@@ -4,22 +4,33 @@ import "./Header.css";
 import ButtonWithIcon from "./ButtonWithIcon.jsx";
 import ProfileButton from "./ProfileButton.jsx"; // Import the new component
 
-const Header = () => {
+const Header = ({ searchQuery, setSearchQuery }) => {
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value); // Update the search query state on input change
+  };
+
   return (
     <div className="header">
       {/* Search Bar */}
       <div className="search-bar">
-        <input type="text" placeholder="Search..." className="search-input" />
+        <input
+          type="text"
+          placeholder="Search..."
+          className="search-input"
+          value={searchQuery} // Bind input value to searchQuery state
+          onChange={handleSearchChange} // Update searchQuery when typing
+        />
         <FaSearch className="search-icon" />
       </div>
 
       {/* Buttons on the right side */}
       <div className="message-section">
-        <ButtonWithIcon icon={<FaBell />} name="" />
-        <ButtonWithIcon icon={<FaEnvelope />} name="" />
+        <ButtonWithIcon icon={<FaBell />} name="" route="/notifications" />
+        <ButtonWithIcon icon={<FaEnvelope />} name="" route="/messages" />
         <ProfileButton
           image="https://www.profilebakery.com/wp-content/uploads/2023/04/LINKEDIN-Profile-Picture-AI.jpg"
           name="Amit sisodiya"
+          route="/profile"
         />
       </div>
     </div>

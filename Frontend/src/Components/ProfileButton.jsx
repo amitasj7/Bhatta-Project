@@ -1,9 +1,16 @@
 import React from "react";
-import "./ProfileButton.css"; // Import the CSS for the profile button
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import "./ProfileButton.css";
 
-const ProfileButton = ({ image, name }) => {
+const ProfileButton = ({ image, name, route}) => {
+  const navigate = useNavigate(); // Initialize the navigate function
+
+  const handleClick = () => {
+    navigate("/dashboard" + route); // Replace "/profile" with the desired route
+  };
+
   return (
-    <div className="profile-button">
+    <div className="profile-button" onClick={handleClick}>
       <div className="profile-image">
         <img src={image} alt="Profile" />
       </div>

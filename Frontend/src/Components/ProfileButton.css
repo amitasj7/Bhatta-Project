@@ -8,13 +8,17 @@
   border-radius: 15px;
   background-color: rgba(206, 135, 86, 0.51);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   overflow: hidden;
   min-width: 0; /* Prevent overflow in flex containers */
 }
 
 .profile-button:hover {
   background-color: rgba(166, 106, 66, 0.51);
+}
+
+.profile-button:active {
+  transform: scale(0.95);
 }
 
 .profile-image {

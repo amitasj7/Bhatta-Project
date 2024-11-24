@@ -1,0 +1,97 @@
+/* Layout for the message page */
+.message-page {
+  height: 100%;
+  width: 100%;
+
+  padding: 1rem;
+
+  display: flex;
+  
+
+  font-family: "Judson", serif; /* Use 'serif' as a fallback */
+
+  /* Make the page scrollable when content overflows */
+  /* overflow-y: auto; Enables scrolling if the content overflows vertically */
+
+  box-sizing: border-box; /* Padding included in width */
+  overflow: hidden;
+
+  /* background-color: red; */
+}
+
+/* Drawer section (30% of the width) */
+.message-drawer {
+  width: 30%;
+ 
+  padding-right: 3%;
+  /* padding: 20px; */
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+
+  /* background-color: #cfb569; */
+}
+
+.message-drawer h3 {
+  text-align: center;
+  /* margin-bottom: 20px; */
+}
+
+.contact-item {
+   
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 2%;
+  margin-bottom: 15px;
+  cursor: pointer;
+
+  margin-left: -7%;
+
+  /* background-color: aqua; */
+}
+
+.contact-item:hover {
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+.contact-photo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.contact-item div{
+    margin: 2%;
+    /* background-color: aliceblue; */
+}
+
+.contact-item div h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.contact-item div p {
+  margin: 0;
+  font-size: 14px;
+  color: #888;
+}
+
+/* Message section (remaining 70% width) */
+.message-section2 {
+    
+  width: 70%;
+
+  background-color: #5f5454;
+  /* padding: 20px; */
+ 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.message-section2 h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
