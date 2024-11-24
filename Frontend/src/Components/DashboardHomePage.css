@@ -2,28 +2,36 @@
   height: 100%;
   width: 100%;
 
-  padding: 1rem 4%;
+  padding: 1rem;
+
   
+
   display: flex;
   flex-direction: column;
 
-
-
-  
-  
-  
-  
   font-family: "Judson", serif; /* Use 'serif' as a fallback */
 
   /* Make the page scrollable when content overflows */
-  overflow-y: auto; /* Enables scrolling if the content overflows vertically */
+  /* overflow-y: auto; Enables scrolling if the content overflows vertically */
+
+  box-sizing: border-box; /* Padding included in width */
+  
   /* background-color: red; */
 }
 
 .DashboardHomePage-content {
+  /* flex: 1; */
+  padding: 1.15rem 0;
+  padding-bottom: 3rem;
+
+ 
+
+  /* overflow-y: auto; */
+
   display: flex;
-  gap: 2.5%;
-  
-  flex-wrap: wrap; /* Allow items to wrap onto the next line if needed */
-  width: 100%;
+  row-gap: 1.15rem;  /* Vertical spacing between rows */
+  column-gap: 0.8rem;  /* Horizontal spacing between columns */
+
+  flex-wrap: wrap;
+  /* background-color: white; */
 }

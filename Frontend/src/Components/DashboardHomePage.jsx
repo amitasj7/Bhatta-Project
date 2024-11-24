@@ -53,6 +53,17 @@ const DashboardHomePage = () => {
       stockAvailability: "No",
       location: "Mumbai, India",
     },
+    {
+      backgroundImage:
+        "https://png.pngtree.com/thumb_back/fw800/background/20240520/pngtree-new-hd-beautiful-photo-editing-image_15804437.jpg",
+      profileImage: "https://easy-peasy.ai/cdn-cgi/image/quality=80,format=auto,width=700/https://fdczvxmwwjwpwbeeqcth.supabase.co/storage/v1/object/public/images/50dab922-5d48-4c6b-8725-7fd0755d9334/3a3f2d35-8167-4708-9ef0-bdaa980989f9.png",
+      name: "Jane Doe",
+      mobile: "+91-9988776655",
+      price1: 10,
+      price2: 10000,
+      stockAvailability: "No",
+      location: "Mumbai, India",
+    },
   ];
 
   return (

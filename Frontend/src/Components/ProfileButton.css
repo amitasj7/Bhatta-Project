@@ -1,5 +1,6 @@
 .profile-button {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   flex-grow: 1; /* Take the remaining width */
   padding: 0 15px;

@@ -1,21 +1,22 @@
 /* Drawer Container */
+
+
 .drawer {
   width: 22vw; /* Set width to relative unit */
-  height: 100vh; /* Full height */
+  height: 100vh; /* Full viewport height */
   background: linear-gradient(to bottom, #c3967f, #bec1ac);
   display: flex;
   flex-direction: column; /* Stack children vertically */
   justify-content: space-between; /* Ensure content is spaced between and logout is at the bottom */
   align-items: flex-start; /* Align children to the left */
-  padding-bottom: 1rem; /* Give some space at the bottom */
-  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
 }
-
 /* Logo and Name Section */
 .logo-name {
   display: flex;
   align-items: center; /* Vertically center logo and name */
-  gap: 2rem; /* Space between logo and name */
+  gap: 1rem; /* Space between logo and name */
   margin: 0rem 3rem; /* Margin with relative units */
   margin-top: 0.9rem;
 
@@ -24,13 +25,17 @@
 
 /* Logo Styling */
 .brick-logo {
-  width: 3rem; /* Width with relative unit */
-  height: 2.5rem; /* Height with relative unit */
+  width: 40%; /* Width with relative unit */
+  height: 70%; /* Height with relative unit */
+  
+  /* background-color: beige; */
 }
 
 .brickflow-logo {
-  width: 7rem; /* Width with relative unit */
-  height: 4rem; /* Height with relative unit */
+  width: 60%; /* Width with relative unit */
+  height: 60%; /* Height with relative unit */
+
+  /* background-color: beige; */
 }
 
 .logo-name img {
@@ -53,7 +58,8 @@
   align-items: center; /* Vertically center the content */
   justify-content: center;
   width: 90%; /* Full width of the parent */
- 
+
+  margin-bottom: 1rem;
   /* margin: 0rem 1rem; */
   margin-left: 5%;
   padding: 1rem 0; /* Vertical padding */
@@ -79,5 +85,5 @@
 }
 
 .logout-text {
-  font-size: 1.0rem; /* Text size with relative unit */
+  font-size: 1rem; /* Text size with relative unit */
 }

@@ -40,11 +40,11 @@ const PortfolioCard = ({
       {/* Price and stock details */}
       <div className="price-stock-container">
         <div className="price">
-          <h4>Price 1: <span>{price1}</span></h4>
-          <h4>Price 2: <span>{price2}</span></h4>
+          <h4>Price1: <span>&nbsp;&nbsp;&nbsp;&nbsp; {price1}</span></h4>
+          <h4>Price2: <span>&nbsp;&nbsp;&nbsp;&nbsp;{price2}</span></h4>
         </div>
         <div className="stock">
-          <h4>Stock: <span>{stockAvailability}</span></h4>
+          <h4>Stock: <span>&nbsp;&nbsp;{stockAvailability}</span></h4>
         </div>
       </div>
 

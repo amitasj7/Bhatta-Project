@@ -4,11 +4,15 @@
   height: 100vh; /* Full viewport height */
   display: flex;
   flex-direction: row; /* Arrange child components in a row */
+  overflow: hidden; /* Prevent unwanted scrollbars */
+  
 }
 
 .main-body {
-  flex: 1; /* Take up the remaining space */
+  width: 100%;
+  overflow-x: hidden;
+  
   background: linear-gradient(to bottom, #f1ebe7, #ce8756);
- 
+
   box-sizing: border-box; /* Ensure padding doesn't affect the total width/height */
 }
