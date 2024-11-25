@@ -6,13 +6,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   email: {
     type: String,
     required: true,
     unique: true, // Email unique hona chahiye
   },
-  phone_number: { type: String, required: true, unique: true },
+  phone_number: { 
+    type: String, 
+    required: true, 
+    unique: true 
+  },
   password: {
     type: String,
     required: true,
@@ -21,6 +24,23 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  // Profile photo field
+  profile_photo: {
+    type: String,  // Store as URL
+    default: "",   // Default value can be an empty string or a default URL
+  },
+  // Background photo field
+  background_photo: {
+    type: String,  // Store as URL
+    default: "",   // Default value can be an empty string or a default URL
+  },
+  // New field to track the users a user has chatted with
+  messages: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   // Role field to differentiate users
   role: {
     type: String,
@@ -28,8 +48,16 @@ const userSchema = new mongoose.Schema({
     default: "customer",
     required: true,
   },
-  orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
-  created_at: { type: Date, default: Date.now },
+  orders: [
+    { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "Order" 
+    }
+  ],
+  created_at: { 
+    type: Date, 
+    default: Date.now 
+  },
   refreshToken: {
     type: String,
   },
@@ -48,6 +76,7 @@ userSchema.methods.generateAccessToken = function () {
     }
   );
 };
+
 userSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
     {

@@ -94,9 +94,12 @@ export const login = async (req, res) => {
   }
 
   try {
-    // Database me user find karo based on email
+    // Database me user find karo based on email or phone number
     const user = await User.findOne({
       $or: [{ email: email }, { phone_number: phone_number }],
+    }).populate({
+      path: "messages", // The field you want to populate
+      // select: "name email phone_number", // Specify fields to include from related users
     });
 
     // Agar user nahi mila
@@ -134,19 +137,20 @@ export const login = async (req, res) => {
     //   sameSite: "Lax",
     //   maxAge: 1 * 60 * 1000, // 1 day in milliseconds
     // };
-
+    const isProduction = process.env.NODE_ENV === "production";
+    // delete user.password;
     return res
       .status(200)
       .cookie("accessToken", accessToken, {
         httpOnly: true,
-        secure: false, // Set to true in production
-        sameSite: "Lax",
-        maxAge: 1 * 60 * 60 * 1000, // 1 hour for access token
+        secure: isProduction, // true in production, false in development
+        sameSite: isProduction ? "Strict" : "Lax",
+        maxAge: 1 * 60 * 60 * 1000, // 1 hour
       })
       .cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        secure: false, // Set to true in production
-        sameSite: "Lax",
+        secure: isProduction, // Set to true in production
+        sameSite: isProduction ? "Strict" : "Lax",
         maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day for access token
       })
       .json({
@@ -198,5 +202,25 @@ export const logout = async (req, res) => {
     return res.status(500).json({
       message: error,
     });
+  }
+};
+
+// Get user data by ID
+export const getUserDataById = async (req, res) => {
+  try {
+    const userId = req.params.userId; // Extract userId from URL
+    const user = await User.findById(userId); // Find user by ID
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      status: true,
+      user,
+    }); // Send user data as response
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };

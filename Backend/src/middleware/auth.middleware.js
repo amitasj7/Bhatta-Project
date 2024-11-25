@@ -14,8 +14,15 @@ export const verifyJWT = async (req, res, next) => {
       req.cookies?.refreshToken ||
       req.header("Authorization")?.replace("Bearer ", "");
 
+    if (!refreshToken) {
+      return res.status(401).json({
+        status: false,
+        message: "Refresh token is missing.",
+      });
+    }
+
     // If access token is missing, attempt to refresh it
-    if ( !accessToken  || !refreshToken ) {
+    if (!accessToken ) {
       return await refreshAccessToken(req, res); // Return the response from refreshAccessToken
     }
 

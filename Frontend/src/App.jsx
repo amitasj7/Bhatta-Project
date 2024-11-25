@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 
 import { Routes, Route, Navigate } from "react-router-dom"; // Import Routes and Route components
+import { io } from "socket.io-client";
 
 import { ToastNotification } from "./Components/ToastNotification.jsx";
 
@@ -16,23 +17,38 @@ import MessagePage from "./Components/MessagePage.jsx";
 import DashboardHomePage from "./Components/DashboardHomePage.jsx";
 import NotFoundPage from "./Pages/NotFoundPage.jsx";
 
+import AuthRoute from "./Components/AuthRoute.jsx";
+
 function App() {
+  const socket = io("http://localhost:5000/");
+
   return (
     <>
       <ToastNotification />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/authentication" element={<AuthenticationPage />} />
-        {/* Redirect to /dashboard/home when accessing /dashboard */}
-        <Route path="/dashboard" element={<Navigate to="/dashboard/home" />} />
+        {/* Public Home Route */}
+        <Route path="/" element={<AuthRoute isProtected={false} />}>
+          <Route index element={<HomePage />} />
+        </Route>
 
-        {/* Parent Route: DashboardPage */}
-        <Route path="/dashboard" element={<DashboardPage />}>
-          {/* Child Routes */}
-          <Route path="home" element={<DashboardHomePage />} />
-          <Route path="profile" element={<ProfilePage />} />
-          <Route path="customer" element={<CustomerPage />} />
-          <Route path="messages" element={<MessagePage />} />
+        {/* Public Authentication Route */}
+        <Route
+          path="/authentication"
+          element={<AuthRoute isProtected={false} />}
+        >
+          <Route index element={<AuthenticationPage />} />
+        </Route>
+
+        {/* Protected Dashboard Routes */}
+        <Route path="/dashboard" element={<AuthRoute isProtected={true} />}>
+          <Route path="" element={<DashboardPage />}>
+            {/* Redirect /dashboard to /dashboard/home */}
+            <Route index element={<Navigate to="home" />} />
+            <Route path="home" element={<DashboardHomePage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="customer" element={<CustomerPage />} />
+            <Route path="messages" element={<MessagePage />} />
+          </Route>
         </Route>
 
         <Route path="/profile/addBricks" element={<Bricks />} />

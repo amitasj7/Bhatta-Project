@@ -9,6 +9,11 @@ const Header = ({ searchQuery, setSearchQuery }) => {
     setSearchQuery(e.target.value); // Update the search query state on input change
   };
 
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  if (userData) {
+    console.log("login userdata is : ", userData);
+  }
+
   return (
     <div className="header">
       {/* Search Bar */}
@@ -28,8 +33,8 @@ const Header = ({ searchQuery, setSearchQuery }) => {
         <ButtonWithIcon icon={<FaBell />} name="" route="/notifications" />
         <ButtonWithIcon icon={<FaEnvelope />} name="" route="/messages" />
         <ProfileButton
-          image="https://www.profilebakery.com/wp-content/uploads/2023/04/LINKEDIN-Profile-Picture-AI.jpg"
-          name="Amit sisodiya"
+          image={userData.profile_photo}
+          name={userData.name}
           route="/profile"
         />
       </div>

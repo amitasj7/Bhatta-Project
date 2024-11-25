@@ -24,7 +24,7 @@ import {
 
 import {verifyJWT} from "../middleware/auth.middleware.js";
 
-router.get("/getallbricks", verifyJWT, getAllBricks);
+router.get("/getallbricks", getAllBricks);
 router.get("/getbricks", getBricks);
 router.get("/getbrickspricerange", getBricksPriceRange);
 

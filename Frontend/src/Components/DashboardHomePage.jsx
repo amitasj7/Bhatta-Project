@@ -1,92 +1,75 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DashboardHomePage.css";
 import Header from "./Header";
 import "@fontsource/judson";
 import PortfolioCard from "./PortfolioCard";
+import axios from "axios";
+
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 const DashboardHomePage = () => {
-  // Create an array of portfolio data
-  const portfolioDataArray = [
-    {
-      backgroundImage:
-        "https://pngmagic.com/product_images/nature-background-for-desktop_93b.jpeg",
-      profileImage:
-        "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg",
-      name: "Vijay Sisodiya",
-      mobile: "+91-7023136872",
-      price1: 5,
-      price2: 5000,
-      stockAvailability: "Yes",
-      location: "New Delhi, India",
-    },
-    {
-      backgroundImage:
-        "https://img.pikbest.com/wp/202345/desktop-wallpapers-landscape-background-wallpaper_9578952.jpg!bw700",
-      profileImage:
-        "https://www.profilebakery.com/wp-content/uploads/2023/04/women-AI-Profile-Picture.jpg",
-      name: "Prince jain",
-      mobile: "+91-9988776655",
-      price1: 10,
-      price2: 10000,
-      stockAvailability: "No",
-      location: "Mumbai, India",
-    },
-    // Add more items here as needed
-    {
-      backgroundImage:
-        "https://t4.ftcdn.net/jpg/07/87/16/69/360_F_787166948_1YEZeLZl8XTsp6OXXK78rovNTNPC6PoC.jpg",
-
-      name: "Anish kumar roy",
-      mobile: "+91-9988776655",
-      price1: 10,
-      price2: 10000,
-      stockAvailability: "No",
-      location: "Mumbai, India",
-    },
-    {
-      backgroundImage:
-        "https://png.pngtree.com/thumb_back/fw800/background/20240520/pngtree-new-hd-beautiful-photo-editing-image_15804437.jpg",
-      profileImage:
-        "https://easy-peasy.ai/cdn-cgi/image/quality=80,format=auto,width=700/https://fdczvxmwwjwpwbeeqcth.supabase.co/storage/v1/object/public/images/50dab922-5d48-4c6b-8725-7fd0755d9334/3a3f2d35-8167-4708-9ef0-bdaa980989f9.png",
-      name: "Garvit singh",
-      mobile: "+91-9988776655",
-      price1: 10,
-      price2: 10000,
-      stockAvailability: "No",
-      location: "Mumbai, India",
-    },
-    {
-      backgroundImage:
-        "https://png.pngtree.com/thumb_back/fw800/background/20240520/pngtree-new-hd-beautiful-photo-editing-image_15804437.jpg",
-      profileImage:
-        "https://easy-peasy.ai/cdn-cgi/image/quality=80,format=auto,width=700/https://fdczvxmwwjwpwbeeqcth.supabase.co/storage/v1/object/public/images/50dab922-5d48-4c6b-8725-7fd0755d9334/3a3f2d35-8167-4708-9ef0-bdaa980989f9.png",
-      name: "Aditya jain",
-      mobile: "+91-9988776655",
-      price1: 10,
-      price2: 10000,
-      stockAvailability: "No",
-      location: "Mumbai, India",
-    },
-  ];
-
+  const [portfolioDataArray, setPortfolioDataArray] = useState([]); // Initial state as an empty array
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // Error state for error messages
   const [searchQuery, setSearchQuery] = useState(""); // State for storing search input
+  const [filteredPortfolioData, setFilteredPortfolioData] = useState([]); // Separate state for filtered data
 
-  // Filter portfolio data based on the search query
-  const filteredPortfolioData = portfolioDataArray.filter((portfolio) => {
-    const lowerCaseQuery = searchQuery.toLowerCase();
-    return (
-      portfolio.name.toLowerCase().includes(lowerCaseQuery) ||
-      portfolio.location.toLowerCase().includes(lowerCaseQuery)
-    );
-  });
+  useEffect(() => {
+    // API call to '/brick'
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/bricks/getallbricks`);
+
+
+        console.log("brick data is: ", response.data.data);
+        setPortfolioDataArray(response.data.data); // Set portfolio data in state
+        setLoading(false); // Stop loading after data is fetched
+      } catch (err) {
+        console.error("Error fetching brick data:", err);
+        setError(err.message || "Something went wrong!");
+        setLoading(false); // Stop loading after error
+      }
+    };
+
+    fetchData();
+  }, []); // Fetch data on component mount
+
+  useEffect(() => {
+    // Filter portfolio data based on the search query when data is fetched or searchQuery changes
+    if (portfolioDataArray.length > 0) {
+      const lowerCaseQuery = searchQuery.toLowerCase();
+      const filteredData = portfolioDataArray.filter((portfolio) => {
+        return (
+          (portfolio?.userId?.name &&
+            portfolio?.userId?.name.toLowerCase().includes(lowerCaseQuery)) ||
+          (portfolio?.userId?.location &&
+            portfolio?.userId?.location.toLowerCase().includes(lowerCaseQuery))
+        );
+      });
+      setFilteredPortfolioData(filteredData); // Update filtered data state
+    }
+  }, [portfolioDataArray, searchQuery]); // Runs whenever portfolioDataArray or searchQuery changes
 
   return (
     <div className="DashboardHomePage-main">
       <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       <div className="DashboardHomePage-content">
+        {loading && <div className="loading-spinner">Loading...</div>}{" "}
+        {/* Loading indicator */}
+        {error && <div className="error-message">{error}</div>}{" "}
+        {/* Display error message */}
+        {filteredPortfolioData.length === 0 && !loading && !error && (
+          <div className="no-results">No results found</div> // Message when no data is found
+        )}
         {filteredPortfolioData.map((portfolioData, index) => (
-          <PortfolioCard key={index} {...portfolioData} />
+          <PortfolioCard
+            key={index}
+            userId={portfolioData.userId}
+            price1={portfolioData.price1}
+            price2={portfolioData.price2}
+            availability={portfolioData.availability}
+          />
         ))}
       </div>
     </div>

@@ -43,9 +43,7 @@ export const login = async (userData) => {
     withCredentials: true, // Cookies ke liye
   });
 
-
-  console.log("Response data:", response.data);
-
+  console.log("login res : ", response.data);
   return response;
 };
 

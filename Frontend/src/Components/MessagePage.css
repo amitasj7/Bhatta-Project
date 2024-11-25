@@ -82,8 +82,9 @@
 .message-section2 {
     
   width: 70%;
+  height: 100vh;
 
-  background-color: #5f5454;
+  /* background-color: #8b2e2e; */
   /* padding: 20px; */
  
   display: flex;

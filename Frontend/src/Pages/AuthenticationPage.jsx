@@ -120,11 +120,15 @@ function AuthenticationPage() {
         setAccessToken(response.data.accessToken);
         setRefreshToken(response.data.refreshToken);
 
+        // Login ke baad
+        localStorage.setItem("userData", JSON.stringify(response.data.user)); // `userData` backend se milta hai
+
         // Show success notification
         showToast("Login successful! Welcome back!", "success");
 
+        
         // Redirect to profile page on successful login
-        navigate("/profile");
+        navigate("/dashboard");
       }
     } catch (error) {
       // If there is an error during login

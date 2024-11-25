@@ -1,5 +1,7 @@
 import React from "react";
 import "./Drawer.css"; // Import the CSS file
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import brick from "../assets/Images/bricks.png";
 import Brickflow from "../assets/Images/Brickflow.png";
@@ -22,7 +24,7 @@ const Drawer = () => {
     {
       title: "Menu",
       items: [
-        { icon: homeicon, name: "Home", route: "/home" }, 
+        { icon: homeicon, name: "Home", route: "/home" },
         { icon: profileicon, name: "Profile", route: "/profile" },
       ],
     },
@@ -37,12 +39,33 @@ const Drawer = () => {
     {
       title: "Notifications",
       items: [
-        { icon: transactionsicon, name: "Transactions", route: "/transactions" },
+        {
+          icon: transactionsicon,
+          name: "Transactions",
+          route: "/transactions",
+        },
         { icon: messagesicon, name: "Messages", route: "/messages" },
       ],
     },
   ];
 
+  const navigate = useNavigate(); // Navigation ke liye
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const handleLogout = async () => {
+    try {
+      // Backend se logout endpoint ko call karna
+      await axios.post(`${baseUrl}/auth/logout`, {}, { withCredentials: true });
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      // Clear frontend data (localStorage/sessionStorage)
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // Redirect to login page
+      navigate("/");
+    }
+  };
   return (
     <div className="drawer">
       <div className="logo-name">
@@ -65,7 +88,7 @@ const Drawer = () => {
         ))}
       </div>
 
-      <div className="logout">
+      <div className="logout" onClick={handleLogout}>
         <FaSignOutAlt className="logout-icon" />
         <span className="logout-text">Log out</span>
       </div>

@@ -1,15 +1,16 @@
 import Brick from "../models/Brick.js";
 
-// Add Brick Controller
 export const addBricks = async (req, res) => {
+  console.log("Request Body:", req.body); // Debugging line
+
   const { price1, price2, availability, userId } = req.body;
 
-  if (!price1 || !price2 || !availability || !userId) {
-    return res.status(400).json({
-      status: false,
-      message: "Please fill all necessary details",
-    });
-  }
+  // if (!price1 || !price2 || !availability || !userId) {
+  //   return res.status(400).json({
+  //     status: false,
+  //     message: "Please fill all necessary details",
+  //   });
+  // }
 
   try {
     const newBrick = new Brick({
