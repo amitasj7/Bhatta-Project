@@ -1,10 +1,13 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 95%;
+  height: 95vh; /* Full viewport height with some margin */
   padding: 20px;
+  box-sizing: border-box;
 
-  /* background-color: aqua; */
+  margin-top: -5.2%;
+
+  /* background-color: #28a745; */
 }
 
 .chat-header {
@@ -56,21 +59,25 @@
 .chat-box {
   flex: 1;
   overflow-y: auto;
-  /* margin-top: 20px; */
-  overflow-x: hidden;
+  margin-bottom: 10px; /* Space between messages and input */
+  padding-right: 10px; /* Prevent horizontal overflow */
+
+  /* background-color: aqua; */
+}
+
+.loading {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .message-sent,
 .message-received {
   display: flex;
   justify-content: flex-start;
-  
-
 
   /* background-color: #007bff; */
-
- 
- 
 }
 
 .message-sent {
@@ -85,8 +92,6 @@
   padding: 10px;
   border-radius: 10px;
   max-width: 60%;
-
-
 }
 
 .message-sent p {
@@ -100,15 +105,13 @@
 .message-input {
   display: flex;
   gap: 10px;
-
- 
-
-  /* justify-content: space-between; */
-
   align-items: center;
-  margin-top: 10px;
-
+  margin: 0% 0 -2% -3%; /* Top margin to keep it at the bottom */
   /* background-color: #007bff; */
+  padding: 0 2%;
+  border-radius: 15px;
+  position: sticky;
+  bottom: 0%;
 }
 
 .message-input input {
@@ -120,7 +123,7 @@
   outline: none;
 }
 
-.message-icon2{
+.message-icon2 {
   background-color: #28a745; /* Green background */
   border-radius: 50%; /* Circular shape */
   display: flex;
@@ -133,7 +136,7 @@
 }
 
 .message-icon2:active {
-  transform: scale(0.90); /* Shrinks when pressed */
+  transform: scale(0.9); /* Shrinks when pressed */
 }
 
 .icon2 {
@@ -143,7 +146,6 @@
   transition: transform 0.1s ease; /* Smooth transition */
 }
 
-.icon2:active{
-    transform: scale(0.90); 
-
+.icon2:active {
+  transform: scale(0.9);
 }

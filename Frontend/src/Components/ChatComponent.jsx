@@ -1,41 +1,65 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ChatComponent.css";
 import { IoMdSend } from "react-icons/io";
 import { io } from "socket.io-client";
+import axios from "axios"; // For API calls
+import { FaUserCircle } from "react-icons/fa"; // Fallback icon
 
-const socket = io("http://localhost:5000"); // Adjust this to your deployed backend URL if needed
+const socket = io(import.meta.env.VITE_SOCKET_URL || "http://localhost:5000");
 
-const ChatComponent = ({ selectedContact, userId }) => {
+const ChatComponent = ({ selectedContact, loginUser }) => {
   const [messageInput, setMessageInput] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Load previous messages when selectedContact changes
+  // Fetch previous messages and set up the socket when selectedContact changes
   useEffect(() => {
-    console.log("selected Contact: ",selectedContact);
-    if (selectedContact && selectedContact.messages) {
-      setChatMessages(selectedContact.messages);
-    }
-
-    // Join room for real-time messaging
     if (selectedContact) {
-      socket.emit("join", { roomId: [userId, selectedContact._id].sort().join("-") });
+      const fetchMessages = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_BASE_URL}/messages/${loginUser._id}/${
+              selectedContact._id
+            }`
+          );
+          setChatMessages(response.data.messages || []);
+        } catch (err) {
+          console.error("Error fetching messages:", err);
+          setError("Failed to load messages.");
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchMessages();
+
+      const roomId = [loginUser._id, selectedContact._id].sort().join("-");
+
+      socket.emit("join_room", {
+        senderId: loginUser._id,
+        receiverId: selectedContact._id,
+      });
+
+      // Listen for incoming messages
+      socket.on("receive_message", (message) => {
+        if (
+          (message.senderId === selectedContact._id &&
+            message.receiverId === loginUser._id) ||
+          (message.senderId === loginUser._id &&
+            message.receiverId === selectedContact._id)
+        ) {
+          setChatMessages((prevMessages) => [...prevMessages, message]);
+        }
+      });
+
+      // Cleanup event listener
+      return () => {
+        socket.off("receive_message");
+      };
     }
-
-    // Listen for incoming messages
-    socket.on("receive_message", (message) => {
-      if (
-        (message.senderId === selectedContact._id && message.receiverId === userId) ||
-        (message.senderId === userId && message.receiverId === selectedContact._id)
-      ) {
-        setChatMessages((prevMessages) => [...prevMessages, message]);
-      }
-    });
-
-    // Cleanup event listener when component unmounts
-    return () => {
-      socket.off("receive_message");
-    };
-  }, [selectedContact, userId]);
+  }, [selectedContact, loginUser]);
 
   const handleMessageInput = (event) => {
     setMessageInput(event.target.value);
@@ -43,15 +67,17 @@ const ChatComponent = ({ selectedContact, userId }) => {
 
   const sendMessage = () => {
     if (messageInput.trim() && selectedContact) {
-      const message = {
-        senderId: userId,
+      const messageData = {
+        senderId: loginUser._id,
         receiverId: selectedContact._id,
         content: messageInput,
-        timestamp: new Date(), // Add timestamp
+        timestamp: new Date(),
       };
 
-      socket.emit("send_message", message);
-      setChatMessages((prevMessages) => [...prevMessages, message]);
+      // Emit message to the backend
+      socket.emit("send_message", messageData);
+
+      // Clear the message input (without updating chatMessages here)
       setMessageInput("");
     }
   };
@@ -62,21 +88,34 @@ const ChatComponent = ({ selectedContact, userId }) => {
         <>
           <div className="chat-header">
             <div className="user-info">
-              <img
-                src={selectedContact.profilePhoto || "defaultProfile.jpg"} // Fallback image
-                alt={selectedContact.name}
-                className="user-photo"
-              />
+              {selectedContact.profile_photo ? (
+                <img
+                  src={selectedContact.profile_photo || "defaultProfile.jpg"}
+                  alt={selectedContact.name}
+                  className="user-photo"
+                />
+              ) : (
+                <FaUserCircle className="user-photo" />
+              )}
+
               <h4>{selectedContact.name}</h4>
             </div>
           </div>
           <div className="chat-box">
-            {chatMessages.length > 0 ? (
+            {loading ? (
+              <div className="loading">
+                <p >Loading messages...</p>
+              </div>
+            ) : error ? (
+              <p className="error">{error}</p>
+            ) : chatMessages.length > 0 ? (
               chatMessages.map((msg, index) => (
                 <div
                   key={index}
                   className={
-                    msg.senderId === userId ? "message-sent" : "message-received"
+                    msg.senderId === loginUser._id
+                      ? "message-sent"
+                      : "message-received"
                   }
                 >
                   <p>{msg.content}</p>
@@ -86,7 +125,9 @@ const ChatComponent = ({ selectedContact, userId }) => {
                 </div>
               ))
             ) : (
-              <p className="no-messages">No messages yet. Start the conversation!</p>
+              <p className="no-messages">
+                No messages yet. Start the conversation!
+              </p>
             )}
           </div>
           <div className="message-input">
@@ -95,7 +136,7 @@ const ChatComponent = ({ selectedContact, userId }) => {
               value={messageInput}
               onChange={handleMessageInput}
               placeholder="Type a message..."
-              onKeyPress={(e) => e.key === "Enter" && sendMessage()} // Send message on Enter key
+              onKeyPress={(e) => e.key === "Enter" && sendMessage()}
             />
             <div className="message-icon2" onClick={sendMessage}>
               <IoMdSend className="icon2" />

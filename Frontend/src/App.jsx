@@ -15,9 +15,15 @@ import ProfilePage from "./Components/ProfilePage.jsx";
 import CustomerPage from "./Components/CustomerPage.jsx";
 import MessagePage from "./Components/MessagePage.jsx";
 import DashboardHomePage from "./Components/DashboardHomePage.jsx";
+import NotificationsPage from "./Pages/Notifications.jsx";
+
+
 import NotFoundPage from "./Pages/NotFoundPage.jsx";
 
 import AuthRoute from "./Components/AuthRoute.jsx";
+import ProductPage from "./Pages/ProductPage.jsx";
+import ReportPage from "./Pages/ReportPage.jsx";
+import TransactionsPage from "./Pages/TransactionsPage.jsx";
 
 function App() {
   const socket = io("http://localhost:5000/");
@@ -48,6 +54,13 @@ function App() {
             <Route path="profile" element={<ProfilePage />} />
             <Route path="customer" element={<CustomerPage />} />
             <Route path="messages" element={<MessagePage />} />
+            <Route path="product" element={<ProductPage />} />
+            <Route path="report" element={<ReportPage />} />
+            <Route path="transactions" element={<TransactionsPage />} />
+
+
+
+            <Route path="notifications" element={<NotificationsPage />} />
           </Route>
         </Route>
 

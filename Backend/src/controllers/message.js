@@ -1,4 +1,5 @@
 import Message from "../models/Message.js";
+import User from "../models/User.js";
 
 export const Chat = async (req, res) => {
   const { userId, contactId } = req.params;
@@ -21,5 +22,34 @@ export const Chat = async (req, res) => {
   } catch (error) {
     console.error("Error fetching messages:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const ChatUser = async (req, res) => {
+  try {
+    const { userId } = req.params; // Get userid from the URL
+
+    console.log("userid ",userId);
+
+    // Step 1: Find the loginUser by userid
+    const loginUser = await User.findById(userId).populate("messages"); // Populate the chatUser info from the message field
+
+    if (!loginUser) {
+      return res.status(404).json({
+        status: false,
+        message: "User not found.",
+      });
+    }
+
+    // Step 3: Return the populated user data
+    res.status(200).json({
+      status: true,
+      loginUser: loginUser,
+    });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ 
+      status: false,
+      message: "Error fetching user data." });
   }
 };

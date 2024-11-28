@@ -16,4 +16,8 @@
   background: linear-gradient(to bottom, #f1ebe7, #ce8756);
 
   box-sizing: border-box; /* Ensure padding doesn't affect the total width/height */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
