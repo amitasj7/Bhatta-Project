@@ -2,7 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./ProfileButton.css";
 
-const ProfileButton = ({ image, name, route}) => {
+import { FaUserCircle } from "react-icons/fa"; // Fallback icon
+
+const ProfileButton = ({ image, name, route }) => {
   const navigate = useNavigate(); // Initialize the navigate function
 
   const handleClick = () => {
@@ -12,7 +14,7 @@ const ProfileButton = ({ image, name, route}) => {
   return (
     <div className="profile-button" onClick={handleClick}>
       <div className="profile-image">
-        <img src={image} alt="Profile" />
+        {image ? <img src={image} /> : <FaUserCircle className="profile-image" />}
       </div>
       <span className="profile-name">{name}</span>
     </div>
