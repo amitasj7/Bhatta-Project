@@ -17,15 +17,15 @@ import cors from "cors";
 // Frontend se request ko block nahi krega
 // CORS options
 const corsOptions = {
-  origin: "http://localhost:5173", // frontend ka URL
+  origin: process.env.FRONTEND_URL, // frontend ka URL
 
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
+  // methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
   credentials: true, // cookies bhejne ke liye required
 
   // `allowedHeaders` mein woh headers add karen jo client aur server communicate karenge
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  // allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 
-  optionsSuccessStatus: 200, // Older browsers ke liye successful response status
+  // optionsSuccessStatus: 200, // Older browsers ke liye successful response status
 };
 
 app.use(cors(corsOptions));
@@ -44,8 +44,8 @@ import Message from "./src/models/Message.js";
 // Create socket.io server instance
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // Adjust for production URL
-    methods: ["GET", "POST"],
+    origin: process.env.FRONTEND_URL, // Adjust for production URL
+    // methods: ["GET", "POST"],
     credentials: true,
   },
 });

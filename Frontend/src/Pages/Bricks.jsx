@@ -10,10 +10,11 @@ export const Bricks = () => {
     formState: { errors },
   } = useForm();
 
+  
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/bricks/add",
+        `${import.meta.env.VITE_BASE_URL}/bricks/add`,
         data
       ); // Adjust URL as needed
       console.log("Response:", response.data);

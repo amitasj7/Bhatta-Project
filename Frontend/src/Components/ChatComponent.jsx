@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import axios from "axios"; // For API calls
 import { FaUserCircle } from "react-icons/fa"; // Fallback icon
 
-const socket = io(import.meta.env.VITE_SOCKET_URL || "http://localhost:5000");
+const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 const ChatComponent = ({ selectedContact, loginUser }) => {
   const [messageInput, setMessageInput] = useState("");

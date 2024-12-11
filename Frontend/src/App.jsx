@@ -26,7 +26,7 @@ import ReportPage from "./Pages/ReportPage.jsx";
 import TransactionsPage from "./Pages/TransactionsPage.jsx";
 
 function App() {
-  const socket = io("http://localhost:5000/");
+  const socket = io(import.meta.env.VITE_SOCKET_URL);
 
   return (
     <>
