@@ -35,3 +35,10 @@
 
 -Phone_number
 -role
+
+-----------------------------------------------------------
+
+1. message button par press --> /dashboard/messages/user={userId} ---> drawer me ye wala user select ho, chatroom me ye chat ke liye open ho, aur iski mere saath previous chat alredy show ho rahi ho
+
+- Specific user data access
+- isUser and loginuser ki previous chat access
